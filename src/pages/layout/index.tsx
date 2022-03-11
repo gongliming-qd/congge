@@ -2,15 +2,24 @@ import { Table, Popconfirm, Button } from 'antd';
 import { useState } from 'react';
 import { history } from 'umi';
 import './index.less';
+import { getProductList } from '../../api/product.js';
 import HomeHeader from './children/header';
 
 export default function index(props) {
   let [defaultActive, setActive] = useState('home');
-
+  const _initGetData = async () => {
+    let res = await getProductList({
+      username: 'gongliming@tenorshare.cn',
+      password: '88888888',
+    });
+    console.log(res);
+  };
   const routerRepeace = (item) => {
     setActive(item);
-    history.push('/list');
+    history.push(`/${item}`);
+    // _initGetData()
   };
+
   return (
     <div className="home">
       <div className="header">

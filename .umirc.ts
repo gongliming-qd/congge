@@ -17,4 +17,11 @@ export default defineConfig({
     },
   ],
   fastRefresh: {},
+  proxy: {
+    '/api': {
+      target: 'https://effects.hitpaw.com',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+  },
 });
