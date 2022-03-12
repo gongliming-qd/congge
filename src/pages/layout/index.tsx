@@ -1,12 +1,18 @@
 import { Table, Popconfirm, Button } from 'antd';
-import { useState } from 'react';
+import {
+  ReadOutlined,
+  DingtalkOutlined,
+  BankOutlined,
+} from '@ant-design/icons';
+import { useState, useEffect } from 'react';
 import { history } from 'umi';
 import './index.less';
-import { getProductList } from '../../api/product.js';
+import { getProductList } from '@/api/product.js';
 import HomeHeader from './children/header';
 
-export default function index(props) {
-  let [defaultActive, setActive] = useState('home');
+export default function index(props: any) {
+  let [defaultActive, setActive] = useState(props.location.pathname.substr(1));
+
   const _initGetData = async () => {
     let res = await getProductList({
       username: 'gongliming@tenorshare.cn',
@@ -14,10 +20,11 @@ export default function index(props) {
     });
     console.log(res);
   };
+  useEffect(() => {});
   const routerRepeace = (item) => {
     setActive(item);
     history.push(`/${item}`);
-    // _initGetData()
+    _initGetData();
   };
 
   return (
@@ -34,7 +41,7 @@ export default function index(props) {
             }}
           >
             <span className="iconSetWidth">
-              <i className="menuIconAdd"></i>
+              <BankOutlined />
             </span>
             <span>home</span>
           </div>
@@ -47,7 +54,7 @@ export default function index(props) {
             }}
           >
             <span className="iconSetWidth">
-              <i className="menuIconMap"></i>
+              <DingtalkOutlined />
             </span>
             <span>server</span>
           </div>
@@ -60,7 +67,7 @@ export default function index(props) {
             }}
           >
             <span className="iconSetWidth">
-              <i className="menuIconTrash"></i>
+              <ReadOutlined />
             </span>
             <span>projection</span>
           </div>
