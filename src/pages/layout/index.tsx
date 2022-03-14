@@ -24,7 +24,7 @@ export default function index(props: any) {
   const routerRepeace = (item) => {
     setActive(item);
     history.push(`/${item}`);
-    _initGetData();
+    // _initGetData();
   };
 
   return (
@@ -43,7 +43,7 @@ export default function index(props: any) {
             <span className="iconSetWidth">
               <BankOutlined />
             </span>
-            <span>home</span>
+            <span>首页</span>
           </div>
           <div
             className={`itemMenu ${
@@ -56,7 +56,7 @@ export default function index(props: any) {
             <span className="iconSetWidth">
               <DingtalkOutlined />
             </span>
-            <span>server</span>
+            <span>服务器</span>
           </div>
           <div
             className={`itemMenu ${
@@ -69,7 +69,7 @@ export default function index(props: any) {
             <span className="iconSetWidth">
               <ReadOutlined />
             </span>
-            <span>projection</span>
+            <span>投影机</span>
           </div>
         </div>
         <div className="content">
