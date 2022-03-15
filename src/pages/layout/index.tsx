@@ -11,7 +11,7 @@ import { getProductList } from '@/api/product.js';
 import HomeHeader from './children/header';
 
 export default function index(props: any) {
-  let [defaultActive, setActive] = useState(props.location.pathname.substr(1));
+  let [defaultActive, setActive] = useState('home');
 
   const _initGetData = async () => {
     let res = await getProductList({
@@ -20,7 +20,9 @@ export default function index(props: any) {
     });
     console.log(res);
   };
-  useEffect(() => {});
+  useEffect(() => {
+    setActive(props.location.pathname.substr(1) || 'home');
+  }, []);
   const routerRepeace = (item) => {
     setActive(item);
     history.push(`/${item}`);

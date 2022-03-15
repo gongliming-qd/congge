@@ -6,7 +6,6 @@ import './index.less';
 export default function index() {
   let [tableData, setTableData] = useState([
     {
-      key: 1,
       id: 1,
       name: 'glm',
       remark: '1',
@@ -84,15 +83,8 @@ export default function index() {
         dataSource={tableData}
         columns={tableColumns}
         className="projectTable"
-      >
-        {tableColumns.map((column) => {
-          <Column
-            title={column.title}
-            dataIndex={column.dataIndex}
-            key={column.key}
-          />;
-        })}
-      </Table>
+        rowKey={'id'}
+      ></Table>
     </div>
   );
 }

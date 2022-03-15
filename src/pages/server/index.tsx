@@ -1,31 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Switch, Table } from 'antd';
 const { Column } = Table;
 import './index.less';
 
 export default function index() {
   let [tableData, setTableData] = useState([
-    { id: 1, name: 'glm', remark: '1', ip: '192.168.1.1', status: true },
+    {
+      id: 1,
+      name: 'glm',
+      remark: '备注',
+      ip: '192.168.1.1',
+      status: true,
+      children: [{}],
+    },
+    { id: 2, name: '帅哥', remark: '1', ip: '192.168.1.1', status: true },
   ]);
+  let [testData, setTestData] = useState({
+    a: 1,
+    b: {
+      c: `1`,
+    },
+  });
   const tableColumns = [
     {
       title: '投影机',
-      dataIndex: 'name',
       key: 'name',
     },
     {
       title: '备注',
-      dataIndex: 'remark',
       key: 'remark',
     },
     {
       title: 'ip',
-      dataIndex: 'ip',
       key: 'ip',
     },
     {
       title: '开机状态',
-      dataIndex: 'status',
       key: 'status',
       render: (text, record) => (
         <Switch
@@ -39,7 +49,24 @@ export default function index() {
       ),
     },
   ];
+
+  useEffect(() => {
+    console.log(testData.b.c);
+  }, [testData.b.c]);
+
   const onChange = (status, record) => {
+    testData.b.c = 2;
+    setTestData({
+      a: 2,
+      b: {
+        c: `1`,
+      },
+    });
+
+    setTestData((val) => {
+      let newVal = val;
+      return newVal;
+    });
     record.status = status;
     setTableData([...tableData]);
     console.log(tableData[0].status);
@@ -54,15 +81,8 @@ export default function index() {
         dataSource={tableData}
         columns={tableColumns}
         className="projectTable"
-      >
-        {tableColumns.map((column) => {
-          <Column
-            title={column.title}
-            dataIndex={column.dataIndex}
-            key={column.key}
-          />;
-        })}
-      </Table>
+        rowKey="id"
+      ></Table>
     </div>
   );
 }
