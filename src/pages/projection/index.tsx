@@ -84,6 +84,7 @@ export default function index() {
         columns={tableColumns}
         className="projectTable"
         rowKey={'id'}
+        pagination={false}
       ></Table>
     </div>
   );
