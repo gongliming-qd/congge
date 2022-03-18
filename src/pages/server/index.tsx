@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Switch, Table } from 'antd';
-const { Column } = Table;
 import './index.less';
 
 export default function index() {
@@ -11,27 +10,24 @@ export default function index() {
       remark: '备注',
       ip: '192.168.1.1',
       status: true,
-      children: [{}],
     },
     { id: 2, name: '帅哥', remark: '1', ip: '192.168.1.1', status: true },
   ]);
-  let [testData, setTestData] = useState({
-    a: 1,
-    b: {
-      c: `1`,
-    },
-  });
+
   const tableColumns = [
     {
       title: '投影机',
+      dataIndex: 'name',
       key: 'name',
     },
     {
       title: '备注',
+      dataIndex: 'remark',
       key: 'remark',
     },
     {
       title: 'ip',
+      dataIndex: 'ip',
       key: 'ip',
     },
     {
@@ -50,26 +46,11 @@ export default function index() {
     },
   ];
 
-  useEffect(() => {
-    console.log(testData.b.c);
-  }, [testData.b.c]);
+  useEffect(() => {}, []);
 
   const onChange = (status, record) => {
-    testData.b.c = 2;
-    setTestData({
-      a: 2,
-      b: {
-        c: `1`,
-      },
-    });
-
-    setTestData((val) => {
-      let newVal = val;
-      return newVal;
-    });
     record.status = status;
     setTableData([...tableData]);
-    console.log(tableData[0].status);
   };
   return (
     <div className="projectPage">
