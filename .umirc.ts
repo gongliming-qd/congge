@@ -16,6 +16,9 @@ export default defineConfig({
       ],
     },
   ],
+  history: {
+    type: 'hash',
+  },
   fastRefresh: {},
   proxy: {
     '/api': {
