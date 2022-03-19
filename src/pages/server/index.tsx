@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Switch, Table } from 'antd';
+import { Switch, Table, Spin } from 'antd';
+import { getServerList } from '@/api/product.js';
+import Loadding from '@/components/loading/index';
 import './index.less';
 
 export default function index() {
-  let [tableData, setTableData] = useState([
-    {
-      id: 1,
-      name: 'glm',
-      remark: '备注',
-      ip: '192.168.1.1',
-      status: true,
-    },
-    { id: 2, name: '帅哥', remark: '1', ip: '192.168.1.1', status: true },
-  ]);
+  let [tableData, setTableData] = useState([]);
+  let [loaddingStatus, setLoaddingStatus] = useState(false);
 
   const tableColumns = [
     {
@@ -46,14 +40,28 @@ export default function index() {
     },
   ];
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    _initGetData();
+  }, []);
 
+  // 1. 初始化数据
+  const _initGetData = async () => {
+    setLoaddingStatus(true);
+    let res = await getServerList({});
+    if (res.status === 200 && res.statusText === 'OK') {
+      setTableData(res.data.list);
+    }
+    setLoaddingStatus(false);
+  };
+  // 单个修改开关机
   const onChange = (status, record) => {
     record.status = status;
     setTableData([...tableData]);
   };
+
   return (
     <div className="projectPage">
+      {loaddingStatus && <Loadding></Loadding>}
       <div className="controlButtons">
         <div className="controlButton">全开机</div>
         <div className="controlButton">全关机</div>

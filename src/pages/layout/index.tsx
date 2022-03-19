@@ -7,14 +7,14 @@ import {
 import { useState, useEffect } from 'react';
 import { history } from 'umi';
 import './index.less';
-import { getProductList } from '@/api/product.js';
+import { getServerList } from '@/api/product.js';
 import HomeHeader from './children/header';
 
 export default function index(props: any) {
   let [defaultActive, setActive] = useState('home');
 
   const _initGetData = async () => {
-    let res = await getProductList({
+    let res = await getServerList({
       username: 'gongliming@tenorshare.cn',
       password: '88888888',
     });

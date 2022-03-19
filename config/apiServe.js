@@ -1,5 +1,5 @@
-var devServe = 'https://effects.hitpaw.com';
-var prodServe = 'http://192.168.3.53:8089';
+var devServe = 'http://localhost:8001';
+var prodServe = 'http://localhost:8001';
 // var prodServe = 'https://effects.hitpaw.com'
 var testServe = 'https://effects.hitpaw.com';
 module.exports = {

@@ -1,4 +1,5 @@
 import { defineConfig } from 'umi';
+var apiServe = require('./config/apiServe.js');
 
 export default defineConfig({
   nodeModulesTransform: {
@@ -22,7 +23,7 @@ export default defineConfig({
   fastRefresh: {},
   proxy: {
     '/api': {
-      target: 'https://effects.hitpaw.com',
+      target: apiServe.devServe,
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },
