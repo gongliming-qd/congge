@@ -1,5 +1,5 @@
-var devServe = 'http://localhost:8001';
-var prodServe = 'http://localhost:8001';
+var devServe = 'http://5085020q00.eicp.vip:52287/';
+var prodServe = 'http://5085020q00.eicp.vip:52287/';
 // var prodServe = 'https://effects.hitpaw.com'
 var testServe = 'https://effects.hitpaw.com';
 module.exports = {
