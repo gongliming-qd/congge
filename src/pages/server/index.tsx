@@ -11,7 +11,7 @@ export default function index() {
 
   const tableColumns = [
     {
-      title: '投影机',
+      title: '服务器',
       dataIndex: 'name',
       key: 'name',
     },
@@ -139,6 +139,14 @@ export default function index() {
           }}
         >
           全关机
+        </div>
+        <div
+          className="controlButton"
+          onClick={() => {
+            _initGetData();
+          }}
+        >
+          刷新列表
         </div>
       </div>
       <Table

@@ -44,23 +44,23 @@ export default function index() {
         />
       ),
     },
-    {
-      title: '视频源',
-      dataIndex: 'videoSource',
-      key: 'videoSource',
-      render: (text, record) => (
-        <Radio.Group
-          onChange={(status) => {
-            onChangeVideoSource(status.target.value, record);
-          }}
-          value={record.videoSource}
-        >
-          <Radio value={0}>HDMI1</Radio>
-          <Radio value={1}>HDMI2</Radio>
-          <Radio value={2}>DVI</Radio>
-        </Radio.Group>
-      ),
-    },
+    // {
+    //   title: '视频源',
+    //   dataIndex: 'videoSource',
+    //   key: 'videoSource',
+    //   render: (text, record) => (
+    //     <Radio.Group
+    //       onChange={(status) => {
+    //         onChangeVideoSource(status.target.value, record);
+    //       }}
+    //       value={record.videoSource}
+    //     >
+    //       <Radio value={0}>HDMI1</Radio>
+    //       <Radio value={1}>HDMI2</Radio>
+    //       <Radio value={2}>DVI</Radio>
+    //     </Radio.Group>
+    //   ),
+    // },
   ];
   useEffect(() => {
     _initGetData();
@@ -105,6 +105,8 @@ export default function index() {
       status: status ? 0 : -1,
       id: record.id,
     });
+    console.log(res);
+
     if (res.status === 200 && res.statusText === 'OK') {
       setLoaddingStatus(false);
       record.status = status;
@@ -183,6 +185,14 @@ export default function index() {
           }}
         >
           全关机
+        </div>
+        <div
+          className="controlButton"
+          onClick={() => {
+            _initGetData();
+          }}
+        >
+          刷新列表
         </div>
       </div>
       <Table
