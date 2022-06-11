@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Switch, Table, Radio, message } from 'antd';
+import { Switch, Table, Radio, message, Button, Tag } from 'antd';
 import {
   getProjectorList,
   projectorEdit,
@@ -30,18 +30,52 @@ export default function index() {
       key: 'ip',
     },
     {
-      title: '开机状态',
+      title: '在线离线状态',
       dataIndex: 'status',
       key: 'status',
       render: (text, record) => (
-        <Switch
-          checkedChildren="开启"
-          unCheckedChildren="关闭"
-          checked={record.status}
-          onChange={(status) => {
-            onChangeStatus(status, record);
-          }}
-        />
+        // <Switch
+        //   checkedChildren="开启"
+        //   unCheckedChildren="关闭"
+        //   checked={record.status}
+        //   onChange={(status) => {
+        //     onChangeStatus(status, record);
+        //   }}
+        // />
+
+        <div>
+          {record.status ? (
+            <Tag color="#87d068">在线</Tag>
+          ) : (
+            <Tag color="#f50">离线</Tag>
+          )}
+        </div>
+      ),
+    },
+    {
+      title: '操作',
+      dataIndex: 'status',
+      key: 'status',
+      render: (text, record) => (
+        <div>
+          <Button
+            type="primary"
+            onClick={() => {
+              onChangeStatus(0, record);
+            }}
+          >
+            开机
+          </Button>
+          <Button
+            danger
+            style={{ marginLeft: '20px' }}
+            onClick={() => {
+              onChangeStatus(-1, record);
+            }}
+          >
+            关机
+          </Button>
+        </div>
       ),
     },
     // {
@@ -64,6 +98,14 @@ export default function index() {
   ];
   useEffect(() => {
     _initGetData();
+
+    const timer = setInterval(() => {
+      _initNoloaddingGetData();
+    }, 3000);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   // 1. 初始化数据
@@ -71,6 +113,9 @@ export default function index() {
     setLoaddingStatus(true);
     await getData();
     setLoaddingStatus(false);
+  };
+  const _initNoloaddingGetData = async () => {
+    await getData();
   };
   // 2. 获取数据
   const getData = async () => {
@@ -100,22 +145,18 @@ export default function index() {
   };
   // 3. 单个修改开关机
   const onChangeStatus = async (status, record) => {
+    console.log(record);
+
     setLoaddingStatus(true);
     let res = await projectorEdit({
-      status: status ? 0 : -1,
+      status: status,
       id: record.id,
     });
     console.log(res);
 
     if (res.status === 200 && res.statusText === 'OK') {
       setLoaddingStatus(false);
-      record.status = status;
-      setTableData([...tableData]);
-      message.success('修改成功~');
-    } else {
-      message.error(res.statusText);
-      record.status = !status;
-      setTableData([...tableData]);
+      message.success('操作成功~');
     }
     setLoaddingStatus(false);
   };
