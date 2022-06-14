@@ -1,4 +1,5 @@
 import { Table, Popconfirm, Button } from 'antd';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import {
   ReadOutlined,
   DingtalkOutlined,
@@ -12,6 +13,9 @@ import HomeHeader from './children/header';
 
 export default function index(props: any) {
   let [defaultActive, setActive] = useState('home');
+
+  const Location = useLocation();
+  console.log(Location);
 
   const _initGetData = async () => {
     let res = await getServerList({
@@ -35,45 +39,49 @@ export default function index(props: any) {
         <HomeHeader></HomeHeader>
       </div>
       <div className="centerBody">
-        <div className="menu">
-          <div
-            className={`itemMenu ${defaultActive === 'home' ? 'active' : null}`}
-            onClick={() => {
-              routerRepeace('home');
-            }}
-          >
-            <span className="iconSetWidth">
-              <BankOutlined />
-            </span>
-            <span>首页</span>
+        {Location.pathname !== '/phone' && (
+          <div className="menu">
+            <div
+              className={`itemMenu ${
+                defaultActive === 'home' ? 'active' : null
+              }`}
+              onClick={() => {
+                routerRepeace('home');
+              }}
+            >
+              <span className="iconSetWidth">
+                <BankOutlined />
+              </span>
+              <span>首页</span>
+            </div>
+            <div
+              className={`itemMenu ${
+                defaultActive === 'server' ? 'active' : null
+              }`}
+              onClick={() => {
+                routerRepeace('server');
+              }}
+            >
+              <span className="iconSetWidth">
+                <DingtalkOutlined />
+              </span>
+              <span>服务器</span>
+            </div>
+            <div
+              className={`itemMenu ${
+                defaultActive === 'projection' ? 'active' : null
+              }`}
+              onClick={() => {
+                routerRepeace('projection');
+              }}
+            >
+              <span className="iconSetWidth">
+                <ReadOutlined />
+              </span>
+              <span>投影机</span>
+            </div>
           </div>
-          <div
-            className={`itemMenu ${
-              defaultActive === 'server' ? 'active' : null
-            }`}
-            onClick={() => {
-              routerRepeace('server');
-            }}
-          >
-            <span className="iconSetWidth">
-              <DingtalkOutlined />
-            </span>
-            <span>服务器</span>
-          </div>
-          <div
-            className={`itemMenu ${
-              defaultActive === 'projection' ? 'active' : null
-            }`}
-            onClick={() => {
-              routerRepeace('projection');
-            }}
-          >
-            <span className="iconSetWidth">
-              <ReadOutlined />
-            </span>
-            <span>投影机</span>
-          </div>
-        </div>
+        )}
         <div className="content">
           <div className="showContend">{props.children}</div>
         </div>
